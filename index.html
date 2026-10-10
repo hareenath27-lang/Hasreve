@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOSSIER // OM BRAMMA HAREE NATHAN S - Software Developer</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Bebas Neue, Share Tech Mono, Cinzel, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            dexter: {
+              blood: '#8b0000',
+              crimson: '#dc143c',
+              brightRed: '#ff1744',
+              neonRed: '#ff2a4d',
+              darkVoid: '#07080a',
+              cardBg: '#0e1117',
+              forensicTeal: '#00d2d3',
+              forensicCyan: '#54a0ff',
+              slideGlass: 'rgba(255, 255, 255, 0.04)',
+              borderDark: '#232936',
+              tapeYellow: '#f59e0b'
+            }
+          },
+          fontFamily: {
+            title: ['Cinzel', 'serif'],
+            mono: ['Share Tech Mono', 'monospace'],
+            teko: ['Teko', 'sans-serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0b0e;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #8b0000;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #dc143c;
+    }
+
+    /* Ambient CRT scanline overlay */
+    .scanlines {
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.35) 50%
+      ), linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.03),
+        rgba(0, 255, 0, 0.01),
+        rgba(0, 0, 255, 0.03)
+      );
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+    }
+
+    /* Blood droplet & glass slide styling */
+    .glass-slide {
+      background: rgba(14, 17, 23, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(220, 20, 60, 0.25);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(139, 0, 0, 0.1);
+    }
+    .glass-slide:hover {
+      border-color: rgba(220, 20, 60, 0.6);
+      box-shadow: 0 12px 35px -5px rgba(220, 20, 60, 0.2), inset 0 0 25px rgba(220, 20, 60, 0.15);
+    }
+
+    /* Red Forensic Stamp */
+    .stamp-classified {
+      border: 2px dashed #dc143c;
+      color: #ff2a4d;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      transform: rotate(-3deg);
+      display: inline-block;
+      text-shadow: 0 0 8px rgba(220, 20, 60, 0.6);
+    }
+
+    /* Pulsing heart/radar indicator */
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); filter: drop-shadow(0 0 12px #ff1744); }
+    }
+    .pulse-glow {
+      animation: pulseGlow 2.5s infinite ease-in-out;
+    }
+
+    /* Blood splatter badge */
+    .blood-dot {
+      width: 14px;
+      height: 14px;
+      background: radial-gradient(circle, #ff1744 20%, #8b0000 85%);
+      box-shadow: 0 0 10px #ff1744;
+      border-radius: 50%;
+    }
+
+    /* Print media optimization */
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        color: #111111 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .page-section {
+        display: block !important;
+        page-break-after: always;
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .glass-slide {
+        background: #f8fafc !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #0f172a !important;
+        box-shadow: none !important;
+      }
+      .text-dexter-forensicTeal, .text-dexter-brightRed, .text-dexter-neonRed {
+        color: #b91c1c !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-[#07080a] text-slate-200 font-sans min-h-screen relative selection:bg-dexter-blood selection:text-white overflow-x-hidden">
+  
+  <!-- CRT Scanline Texture & Ambient Layer -->
+  <div class="fixed inset-0 scanlines z-40 opacity-40"></div>
+  
+  <!-- Subtle Vignette & Blood Spatter Backdrop -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <!-- Atmospheric deep red gradient orb -->
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-red-900/20 rounded-full blur-[120px]"></div>
+    <div class="absolute top-1/2 -right-32 w-[30rem] h-[30rem] bg-dexter-blood/15 rounded-full blur-[140px]"></div>
+    <div class="absolute -bottom-32 left-1/3 w-[34rem] h-[34rem] bg-cyan-950/20 rounded-full blur-[130px]"></div>
+    <!-- Forensic grid lines -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f293d0f_1px,transparent_1px),linear-gradient(to_bottom,#1f293d0f_1px,transparent_1px)] bg-[size:3.5rem_3.5rem]"></div>
+  </div>
+
+  <header class="sticky top-0 z-50 bg-[#07080a]/90 backdrop-blur-md border-b border-dexter-borderDark/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo / Metro Police Evidence Header -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo(0)">
+        <div class="relative flex items-center justify-center w-11 h-11 bg-neutral-900 border border-dexter-blood/70 rounded-lg shadow-inner group">
+          <i class="fa-solid fa-droplet text-dexter-brightRed text-xl group-hover:scale-110 transition-transform"></i>
+          <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-600 rounded-full animate-ping"></span>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-title tracking-widest text-lg font-bold text-white uppercase flex items-center gap-1.5">
+              MIAMI METRO <span class="text-dexter-brightRed">FORENSIC</span> LAB
+            </span>
+            <span class="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono bg-red-950/70 border border-dexter-blood/60 text-red-300 rounded font-bold">CASE #2090606</span>
+          </div>
+          <p class="text-xs font-mono text-slate-400 tracking-wider">SPECIMEN: OM BRAMMA HAREE NATHAN S</p>
+        </div>
+      </div>
+
+      <!-- Dossier Pagination Tabs (Desktop) -->
+      <nav class="hidden md:flex items-center space-x-1 font-mono text-xs bg-neutral-950/80 p-1.5 rounded-xl border border-neutral-800">
+        <button onclick="navigateTo(0)" id="tab-btn-0" class="tab-btn px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 bg-dexter-blood text-white font-semibold shadow-lg shadow-red-900/40">
+          <i class="fa-solid fa-fingerprint text-xs"></i> 01. PROFILE
+        </button>
+        <button onclick="navigateTo(1)" id="tab-btn-1" class="tab-btn px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-white hover:bg-neutral-900">
+          <i class="fa-solid fa-graduation-cap text-xs"></i> 02. ACADEMICS
+        </button>
+        <button onclick="navigateTo(2)" id="tab-btn-2" class="tab-btn px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-white hover:bg-neutral-900">
+          <i class="fa-solid fa-laptop-code text-xs"></i> 03. LAB SKILLS
+        </button>
+        <button onclick="navigateTo(3)" id="tab-btn-3" class="tab-btn px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-white hover:bg-neutral-900">
+          <i class="fa-solid fa-shield-halved text-xs"></i> 04. INNER CIRCLE
+        </button>
+      </nav>
+
+      <!-- Action Utilities: Sound, Print, Quick Contact -->
+      <div class="flex items-center space-x-3">
+        <!-- Audio Pulse Button (Web Audio API Heartbeat) -->
+        <button id="soundToggle" onclick="togglePulseAudio()" title="Forensic Heartbeat Sound" class="p-2.5 rounded-lg bg-neutral-900 border border-neutral-800 text-slate-400 hover:text-dexter-brightRed hover:border-dexter-blood transition-all">
+          <i class="fa-solid fa-heart-pulse text-sm" id="soundIcon"></i>
+        </button>
+        
+        <!-- Print / PDF Dossier -->
+        <button onclick="window.print()" title="Export / Print Physical Dossier" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-mono text-slate-300 hover:text-white hover:border-slate-600 transition-all">
+          <i class="fa-solid fa-print text-dexter-forensicTeal"></i> PRINT DOSSIER
+        </button>
+
+        <!-- Slide Box Index Indicator -->
+        <div class="bg-red-950/40 border border-dexter-blood/40 px-3 py-1.5 rounded-lg text-center hidden lg:block">
+          <span class="text-[10px] block font-mono text-slate-400 uppercase tracking-widest">SLIDE</span>
+          <span class="text-sm font-teko text-dexter-brightRed font-bold leading-none tracking-wider" id="pageNumberDisplay">PAGE 01 / 04</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Sub-bar -->
+    <div class="md:hidden flex border-t border-neutral-800/80 bg-neutral-950 px-2 py-1 justify-around text-[11px] font-mono overflow-x-auto">
+      <button onclick="navigateTo(0)" id="mob-tab-0" class="mob-tab px-3 py-1.5 text-dexter-brightRed font-bold flex items-center gap-1">
+        <i class="fa-solid fa-fingerprint"></i> Bio
+      </button>
+      <button onclick="navigateTo(1)" id="mob-tab-1" class="mob-tab px-3 py-1.5 text-slate-400 flex items-center gap-1">
+        <i class="fa-solid fa-graduation-cap"></i> Academic
+      </button>
+      <button onclick="navigateTo(2)" id="mob-tab-2" class="mob-tab px-3 py-1.5 text-slate-400 flex items-center gap-1">
+        <i class="fa-solid fa-laptop-code"></i> Skills
+      </button>
+      <button onclick="navigateTo(3)" id="mob-tab-3" class="mob-tab px-3 py-1.5 text-slate-400 flex items-center gap-1">
+        <i class="fa-solid fa-shield-halved"></i> Archive
+      </button>
+    </div>
+  </header>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-neutral-900 border border-dexter-brightRed px-4 py-3 rounded-lg shadow-2xl flex items-center gap-3 font-mono text-xs text-white">
+    <i class="fa-solid fa-circle-check text-dexter-brightRed text-base"></i>
+    <span id="toastMsg">Data Copied to Clipboard</span>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 min-h-[calc(100vh-160px)]">
+
+    <!-- ======================================================== -->
+    <!-- PAGE 1: CASE FILE 01 - SUBJECT OVERVIEW & PROFILE        -->
+    <!-- ======================================================== -->
+    <section id="page-0" class="page-section transition-all duration-500 block">
+      
+      <!-- Top Classified Banner -->
+      <div class="glass-slide rounded-2xl p-6 mb-8 border border-neutral-800 relative overflow-hidden">
+        <div class="absolute -right-8 -top-8 w-44 h-44 bg-dexter-blood/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+            
+            <!-- Blood Slide Avatar Frame -->
+            <div class="relative group">
+              <!-- Glass microscope slide shape -->
+              <div class="w-32 h-44 sm:w-36 sm:h-48 rounded-xl bg-gradient-to-b from-neutral-800 via-neutral-900 to-black border-2 border-slate-700/80 p-2 shadow-2xl flex flex-col justify-between items-center relative overflow-hidden transition-transform duration-300 group-hover:scale-105">
+                <!-- Slide glass reflection -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none"></div>
+                <!-- Top slide label -->
+                <div class="w-full text-center border-b border-neutral-700 pb-1">
+                  <span class="text-[9px] font-mono text-slate-400 tracking-widest block uppercase">BLOOD SLIDE #001</span>
+                </div>
+                <!-- Avatar Visual / Forensic Icon Silhouette -->
+                <div class="relative my-auto flex flex-col items-center">
+                  <div class="w-20 h-20 rounded-full border border-dexter-brightRed/60 bg-red-950/30 flex items-center justify-center relative shadow-inner">
+                    <i class="fa-solid fa-user-secret text-4xl text-slate-200"></i>
+                    <!-- Blood droplet inside slide -->
+                    <span class="absolute bottom-0 right-1 w-4 h-4 rounded-full bg-dexter-brightRed shadow-lg shadow-red-500 animate-pulse"></span>
+                  </div>
+                  <span class="text-[10px] font-mono text-dexter-neonRed mt-2 uppercase tracking-wider font-bold">DARK PASSENGER: ACTIVE</span>
+                </div>
+                <!-- Bottom slide barcode tag -->
+                <div class="w-full text-center border-t border-neutral-700 pt-1 font-mono text-[8px] text-slate-500">
+                  REF: OBHN-2090606
+                </div>
+              </div>
+              <div class="absolute -bottom-3 -right-3 stamp-classified px-2 py-0.5 text-[9px] bg-black/90 font-bold">
+                EVIDENCE VERIFIED
+              </div>
+            </div>
+
+            <!-- Subject Details & Headline -->
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span class="bg-red-950/80 text-dexter-neonRed border border-red-800/80 px-2.5 py-0.5 rounded text-xs font-mono font-bold tracking-widest uppercase">
+                  CLASSIFIED // FORENSIC DOSSIER
+                </span>
+                <span class="bg-neutral-800 text-slate-300 px-2.5 py-0.5 rounded text-xs font-mono">
+                  BLOOD SPATTER ANALYST OF CODE
+                </span>
+              </div>
+              
+              <h1 class="text-3xl sm:text-5xl font-title font-bold text-white tracking-wide leading-tight">
+                OM BRAMMA HAREE NATHAN S
+              </h1>
+              <p class="text-dexter-forensicTeal font-mono text-sm sm:text-base mt-1 flex items-center gap-2">
+                <i class="fa-solid fa-terminal text-xs"></i> Software Developer Student & Engineering Analyst
+              </p>
+              
+              <!-- Quick Academic / Institute Anchor -->
+              <p class="text-slate-400 text-sm mt-3 max-w-2xl leading-relaxed">
+                Computer Science & Engineering Student at <strong class="text-slate-200">M. Kumarasamy College of Engineering (MKCE)</strong>. Dedicated to algorithmic precision, rigorous debugging, and clean architecture. Driven by an unyielding Dark Passenger that demands flawless execution and clean solutions.
+              </p>
+
+              <!-- Quick Action Chips -->
+              <div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-neutral-800">
+                <button onclick="copyToClipboard('ombrammahareenathan@gmail.com', 'Personal Email Copied')" class="text-xs font-mono bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 hover:border-dexter-blood px-3 py-1.5 rounded-lg text-slate-300 flex items-center gap-2 transition-all">
+                  <i class="fa-solid fa-envelope text-dexter-brightRed"></i> ombrammahareenathan@gmail.com
+                  <i class="fa-regular fa-copy text-slate-500 text-[10px]"></i>
+                </button>
+                <button onclick="copyToClipboard('23ombrammahareenathan2090606@mkce.ac.in', 'College Email Copied')" class="text-xs font-mono bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 hover:border-dexter-forensicTeal px-3 py-1.5 rounded-lg text-slate-300 flex items-center gap-2 transition-all">
+                  <i class="fa-solid fa-building-columns text-dexter-forensicTeal"></i> mkce.ac.in ID
+                  <i class="fa-regular fa-copy text-slate-500 text-[10px]"></i>
+                </button>
+                <button onclick="copyToClipboard('+919442750859', 'Primary Phone Copied')" class="text-xs font-mono bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 hover:border-emerald-500 px-3 py-1.5 rounded-lg text-slate-300 flex items-center gap-2 transition-all">
+                  <i class="fa-solid fa-phone text-emerald-400"></i> +91 9442750859
+                  <i class="fa-regular fa-copy text-slate-500 text-[10px]"></i>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Forensic Status Box -->
+          <div class="lg:w-64 bg-neutral-950/80 p-4 rounded-xl border border-neutral-800/90 font-mono text-xs flex flex-col justify-between shrink-0">
+            <div>
+              <div class="flex justify-between items-center text-slate-400 mb-2 pb-2 border-b border-neutral-800">
+                <span>SYSTEM STATUS</span>
+                <span class="text-emerald-400 font-bold flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> ONLINE
+                </span>
+              </div>
+              <div class="space-y-1.5 text-slate-300">
+                <div class="flex justify-between"><span class="text-slate-500">Jurisdiction:</span> <span>Tamil Nadu, IN</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">Degree:</span> <span>B.E / CSE Undergrad</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">Affiliation:</span> <span class="text-dexter-forensicTeal">MKCE</span></div>
+                <div class="flex justify-between"><span class="text-slate-500">Obsession:</span> <span class="text-dexter-brightRed">Cinema & Series</span></div>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-neutral-800/80">
+              <button onclick="triggerDarkPassengerQuote()" class="w-full text-center py-2 px-3 bg-red-950/60 hover:bg-red-900/80 text-dexter-neonRed border border-red-800/80 rounded-lg text-xs font-bold tracking-wider transition-all">
+                <i class="fa-solid fa-quote-left mr-1"></i> CODE OF HARRY QUOTE
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        
+        <!-- Pillar 1: The Dark Passenger in Tech -->
+        <div class="glass-slide p-6 rounded-2xl relative">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-red-950/60 border border-dexter-blood flex items-center justify-center text-dexter-brightRed">
+              <i class="fa-solid fa-fire text-lg"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-title font-bold text-white tracking-wide">THE DARK PASSENGER</h3>
+              <p class="text-[11px] font-mono text-slate-400">UNSTOPPABLE CODING INSTINCT</p>
+            </div>
+          </div>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Just like Dexter Morgan channels his internal monster into ridding the streets of predators, I channel my compulsive drive into dismantling bugs, refactoring legacy clutter, and engineering ultra-clean computational systems. Every bug is a case waiting to be solved.
+          </p>
+          <div class="mt-4 pt-4 border-t border-neutral-800/80 font-mono text-xs text-dexter-neonRed flex items-center gap-2">
+            <i class="fa-solid fa-check-double"></i> Rule #1: Don't leave any broken traces.
+          </div>
+        </div>
+
+        <!-- Pillar 2: Forensic Precision & Logic -->
+        <div class="glass-slide p-6 rounded-2xl relative">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-cyan-950/60 border border-cyan-800 flex items-center justify-center text-dexter-forensicTeal">
+              <i class="fa-solid fa-microscope text-lg"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-title font-bold text-white tracking-wide">FORENSIC PRECISION</h3>
+              <p class="text-[11px] font-mono text-slate-400">ANALYTICAL RIGOR & METHOD</p>
+            </div>
+          </div>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Blood spatters tell an exact physics story—velocity, angle of impact, point of origin. Similarly, software stacks tell an exact architectural story. I analyze edge cases, data structures, and memory profiles under high magnification to engineer reliable software.
+          </p>
+          <div class="mt-4 pt-4 border-t border-neutral-800/80 font-mono text-xs text-dexter-forensicTeal flex items-center gap-2">
+            <i class="fa-solid fa-ruler-combined"></i> Rule #2: Measure twice, commit once.
+          </div>
+        </div>
+
+        <!-- Pillar 3: Cinephile & Storytelling Instinct -->
+        <div class="glass-slide p-6 rounded-2xl relative">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-amber-950/60 border border-amber-700 flex items-center justify-center text-amber-400">
+              <i class="fa-solid fa-film text-lg"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-title font-bold text-white tracking-wide">CINEMATIC PASSION</h3>
+              <p class="text-[11px] font-mono text-slate-400">MOVIES & SERIES CONNOISSEUR</p>
+            </div>
+          </div>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Avid consumer of psychological thrillers, neo-noir mysteries, and deep narrative television. Dexter, Breaking Bad, True Detective, Mindhunter. This passion translates to intuitive UX storytelling, user psychology insights, and immersive UI creation.
+          </p>
+          <div class="mt-4 pt-4 border-t border-neutral-800/80 font-mono text-xs text-amber-400 flex items-center gap-2">
+            <i class="fa-solid fa-clapperboard"></i> Rule #3: Craft engaging journeys.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quotes & Dark Passenger Monologue Box -->
+      <div id="monologueBox" class="bg-gradient-to-r from-red-950/40 via-neutral-900 to-black border-l-4 border-dexter-brightRed p-6 rounded-r-2xl mb-8 relative">
+        <i class="fa-solid fa-quote-right absolute top-4 right-6 text-5xl text-neutral-800 pointer-events-none"></i>
+        <div class="font-mono text-xs text-dexter-brightRed uppercase tracking-widest mb-1 flex items-center gap-2">
+          <span class="blood-dot inline-block"></span> VOICE OVER TRANSCRIPT // INNER DIALOGUE
+        </div>
+        <p id="quoteText" class="text-lg sm:text-xl font-title text-slate-200 italic tracking-wide">
+          "Tonight’s the night. The IDE is open. The unit tests are waiting. Some people see lines of code; I see trajectory, flow, and intent. When bugs creep into production, they think they're invisible. They're not."
+        </p>
+        <p class="text-xs font-mono text-slate-400 mt-2">— Om Bramma Haree Nathan S, inspired by Dexter Morgan</p>
+      </div>
+
+      <!-- Quick Navigation Call to Action -->
+      <div class="flex justify-between items-center pt-4 border-t border-neutral-800 font-mono text-xs">
+        <span class="text-slate-500">EXHIBIT A: COMPLETE</span>
+        <button onclick="navigateTo(1)" class="px-5 py-2.5 rounded-lg bg-dexter-blood hover:bg-dexter-crimson text-white font-bold transition-all flex items-center gap-2 shadow-lg shadow-red-950">
+          PROCEED TO EVIDENCE 02: ACADEMICS <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- PAGE 2: EVIDENCE 02 - FORENSIC ACADEMIC ANALYSIS         -->
+    <!-- ======================================================== -->
+    <section id="page-1" class="page-section transition-all duration-500 hidden">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-neutral-800 gap-4">
+        <div>
+          <div class="flex items-center gap-2 font-mono text-xs text-dexter-forensicTeal uppercase tracking-widest">
+            <i class="fa-solid fa-folder-open"></i> CASE RECORD // EDUCATION DOSSIER
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-title font-bold text-white mt-1">ACADEMIC INVESTIGATION REPORT</h2>
+          <p class="text-slate-400 text-sm mt-1">Forensic evaluation of scholastic progression, CBSE board records, and undergraduate standing.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="stamp-classified px-3 py-1 font-mono text-xs font-bold bg-neutral-900">
+            OFFICIAL TRANSCRIPTS VERIFIED
+          </span>
+        </div>
+      </div>
+
+      <!-- Academic Slides Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        
+        <!-- CARD 1: 10th Class (Aurobindo Vidhyalaya) -->
+        <div class="glass-slide rounded-2xl p-6 relative flex flex-col justify-between border-t-4 border-t-dexter-brightRed">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span class="px-2.5 py-1 rounded bg-red-950/80 text-dexter-neonRed text-[11px] font-mono font-bold tracking-widest">
+                STAGE I // SPECIMEN 10-CBSE
+              </span>
+              <span class="text-slate-400 text-xs font-mono"><i class="fa-solid fa-calendar-days mr-1"></i> Secondary</span>
+            </div>
+
+            <h3 class="text-xl font-title font-bold text-white">Aurobindo Vidhyalaya</h3>
+            <p class="text-dexter-forensicTeal font-mono text-xs mb-3">Dharapuram, Tamil Nadu // CBSE</p>
+
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+              Solidified early mathematical reasoning, scientific curiosity, and discipline. Graduated with honors in Central Board of Secondary Education curriculum.
+            </p>
+          </div>
+
+          <!-- Score Card Box -->
+          <div class="bg-neutral-950/90 rounded-xl p-4 border border-neutral-800">
+            <div class="flex justify-between items-end mb-2">
+              <span class="text-xs font-mono text-slate-400">CONFIRMED TALLY:</span>
+              <div class="text-right">
+                <span class="text-2xl font-teko font-bold text-dexter-brightRed leading-none">422</span>
+                <span class="text-sm font-mono text-slate-500">/ 500</span>
+              </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="w-full bg-neutral-800 rounded-full h-2.5 overflow-hidden">
+              <div class="bg-gradient-to-r from-red-800 to-dexter-brightRed h-2.5 rounded-full" style="width: 84.4%"></div>
+            </div>
+            <div class="flex justify-between text-[11px] font-mono text-slate-400 mt-2">
+              <span>EFFICIENCY RATING:</span>
+              <span class="text-dexter-brightRed font-bold">84.4% SCORE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: 11th & 12th Class (Akshaya Academy) -->
+        <div class="glass-slide rounded-2xl p-6 relative flex flex-col justify-between border-t-4 border-t-amber-500">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span class="px-2.5 py-1 rounded bg-amber-950/80 text-amber-400 text-[11px] font-mono font-bold tracking-widest">
+                STAGE II // SPECIMEN 12-CBSE
+              </span>
+              <span class="text-slate-400 text-xs font-mono"><i class="fa-solid fa-calendar-days mr-1"></i> Higher Sec</span>
+            </div>
+
+            <h3 class="text-xl font-title font-bold text-white">Akshaya Academy</h3>
+            <p class="text-amber-400 font-mono text-xs mb-3">Oddanchatram, Tamil Nadu // CBSE</p>
+
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+              Completed Class 11 & Class 12 with comprehensive focus on Advanced Mathematics, Physics, and analytical problem-solving foundational to software engineering.
+            </p>
+          </div>
+
+          <!-- Score Card Box -->
+          <div class="bg-neutral-950/90 rounded-xl p-4 border border-neutral-800">
+            <div class="flex justify-between items-end mb-2">
+              <span class="text-xs font-mono text-slate-400">CONFIRMED TALLY:</span>
+              <div class="text-right">
+                <span class="text-2xl font-teko font-bold text-amber-400 leading-none">392</span>
+                <span class="text-sm font-mono text-slate-500">/ 500</span>
+              </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="w-full bg-neutral-800 rounded-full h-2.5 overflow-hidden">
+              <div class="bg-gradient-to-r from-amber-700 to-amber-500 h-2.5 rounded-full" style="width: 78.4%"></div>
+            </div>
+            <div class="flex justify-between text-[11px] font-mono text-slate-400 mt-2">
+              <span>EFFICIENCY RATING:</span>
+              <span class="text-amber-400 font-bold">78.4% SCORE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: Current College (MKCE) -->
+        <div class="glass-slide rounded-2xl p-6 relative flex flex-col justify-between border-t-4 border-t-dexter-forensicTeal">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span class="px-2.5 py-1 rounded bg-cyan-950/80 text-dexter-forensicTeal text-[11px] font-mono font-bold tracking-widest">
+                STAGE III // ACTIVE LAB RESIDENCY
+              </span>
+              <span class="text-emerald-400 text-xs font-mono font-bold"><i class="fa-solid fa-circle-dot mr-1 animate-pulse"></i> CURRENT</span>
+            </div>
+
+            <h3 class="text-xl font-title font-bold text-white">M. Kumarasamy College of Engineering</h3>
+            <p class="text-dexter-forensicTeal font-mono text-xs mb-3">MKCE, Karur / Tamil Nadu</p>
+
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+              Pursuing Computer Science & Engineering undergraduate degree. Specializing in software architecture, web technologies, and computational algorithmic thinking.
+            </p>
+          </div>
+
+          <!-- Institutional Tag -->
+          <div class="bg-neutral-950/90 rounded-xl p-4 border border-neutral-800 font-mono text-xs">
+            <div class="flex justify-between py-1 border-b border-neutral-800">
+              <span class="text-slate-500">Domain:</span>
+              <span class="text-slate-300">Software Engineering</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-neutral-800">
+              <span class="text-slate-500">Student Roll / ID:</span>
+              <span class="text-dexter-forensicTeal">2090606</span>
+            </div>
+            <div class="flex justify-between py-1">
+              <span class="text-slate-500">Affiliated Domain:</span>
+              <span class="text-white">mkce.ac.in</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="glass-slide rounded-2xl p-6 mb-8">
+        <h3 class="font-title text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <i class="fa-solid fa-timeline text-dexter-brightRed"></i> CHRONOLOGICAL EVIDENCE TRAIL
+        </h3>
+        <div class="relative pl-6 border-l-2 border-neutral-800 space-y-6 font-mono text-xs">
+          
+          <div class="relative group">
+            <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-dexter-brightRed border-4 border-[#07080a]"></div>
+            <div class="text-dexter-neonRed font-bold">SECONDARY CERTIFICATION // CLASS 10 CBSE</div>
+            <div class="text-slate-300 font-sans text-sm mt-0.5">Aurobindo Vidhyalaya Dharapuram (422/500 - 84.4%)</div>
+            <p class="text-slate-500 text-xs mt-1">Established rigorous baseline in mathematical logic, sciences, and communication skills.</p>
+          </div>
+
+          <div class="relative group">
+            <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-amber-500 border-4 border-[#07080a]"></div>
+            <div class="text-amber-400 font-bold">HIGHER SECONDARY CERTIFICATION // CLASS 11-12 CBSE</div>
+            <div class="text-slate-300 font-sans text-sm mt-0.5">Akshaya Academy Oddanchatram (392/500 - 78.4%)</div>
+            <p class="text-slate-500 text-xs mt-1">Deep dove into complex STEM subjects, algorithmic basics, and academic resilience.</p>
+          </div>
+
+          <div class="relative group">
+            <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-dexter-forensicTeal border-4 border-[#07080a] animate-pulse"></div>
+            <div class="text-dexter-forensicTeal font-bold">UNDERGRADUATE STUDIES // SOFTWARE ENGINEERING</div>
+            <div class="text-slate-300 font-sans text-sm mt-0.5">M. Kumarasamy College of Engineering (MKCE)</div>
+            <p class="text-slate-500 text-xs mt-1">Active lab work in web application design, OOP structures, full stack architectures, and software engineering life cycles.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Navigation Footer -->
+      <div class="flex justify-between items-center pt-4 border-t border-neutral-800 font-mono text-xs">
+        <button onclick="navigateTo(0)" class="px-4 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-slate-300 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-arrow-left"></i> CASE 01: BIO
+        </button>
+        <button onclick="navigateTo(2)" class="px-5 py-2.5 rounded-lg bg-dexter-blood hover:bg-dexter-crimson text-white font-bold transition-all flex items-center gap-2 shadow-lg shadow-red-950">
+          PROCEED TO LAB 03: TECHNICAL SPECIMENS <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- PAGE 3: LAB REPORT 03 - TECHNICAL SPECIMENS & PROJECTS   -->
+    <!-- ======================================================== -->
+    <section id="page-2" class="page-section transition-all duration-500 hidden">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-neutral-800 gap-4">
+        <div>
+          <div class="flex items-center gap-2 font-mono text-xs text-dexter-brightRed uppercase tracking-widest">
+            <i class="fa-solid fa-flask-vial"></i> FORENSIC SPECIMENS // TECH ARSENAL
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-title font-bold text-white mt-1">SOFTWARE DEVELOPER LAB ANALYSIS</h2>
+          <p class="text-slate-400 text-sm mt-1">Dissection of programming languages, development stacks, and engineering capabilities.</p>
+        </div>
+        <div class="font-mono text-xs text-slate-400 bg-neutral-900 border border-neutral-800 px-3 py-1.5 rounded-lg">
+          <i class="fa-solid fa-vial text-dexter-neonRed mr-1"></i> SAMPLES ANALYZED: 100% PURITY
+        </div>
+      </div>
+
+      <!-- Blood Slide Glass Matrix: Skills Categorized -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        
+        <!-- Specimen 01: Core Programming Languages -->
+        <div class="glass-slide p-6 rounded-2xl relative border-l-4 border-l-dexter-brightRed">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-title text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-code text-dexter-brightRed"></i> CORE PROGRAMMING
+            </h3>
+            <span class="font-mono text-[10px] text-slate-400 bg-black/60 px-2 py-0.5 rounded">SLIDE #SK-01</span>
+          </div>
+          <div class="space-y-3 font-mono text-xs">
+            <div>
+              <div class="flex justify-between text-slate-300 mb-1">
+                <span>Java / OOP Architecture</span>
+                <span class="text-dexter-brightRed">88%</span>
+              </div>
+              <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-dexter-brightRed h-2 rounded-full" style="width: 88%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-slate-300 mb-1">
+                <span>Python / Scripting & Logic</span>
+                <span class="text-dexter-brightRed">85%</span>
+              </div>
+              <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-dexter-brightRed h-2 rounded-full" style="width: 85%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-slate-300 mb-1">
+                <span>C / C++ Memory Foundations</span>
+                <span class="text-dexter-brightRed">80%</span>
+              </div>
+              <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-dexter-brightRed h-2 rounded-full" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Specimen 02: Modern Web Engineering -->
+        <div class="glass-slide p-6 rounded-2xl relative border-l-4 border-l-dexter-forensicTeal">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-title text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-brands fa-html5 text-dexter-forensicTeal"></i> WEB STACK ANALYSIS
+            </h3>
+            <span class="font-mono text-[10px] text-slate-400 bg-black/60 px-2 py-0.5 rounded">SLIDE #SK-02</span>
+          </div>
+          <div class="space-y-3 font-mono text-xs">
+            <div>
+              <div class="flex justify-between text-slate-300 mb-1">
+                <span>HTML5 / Semantic Structure</span>
+                <span class="text-dexter-forensicTeal">92%</span>
+              </div>
+              <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-dexter-forensicTeal h-2 rounded-full" style="width: 92%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-slate-300 mb-1">
+                <span>CSS3 / Tailwind / Responsive Layouts</span>
+                <span class="text-dexter-forensicTeal">90%</span>
+              </div>
+              <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-dexter-forensicTeal h-2 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-slate-300 mb-1">
+                <span>JavaScript (ES6+) / DOM Interactivity</span>
+                <span class="text-dexter-forensicTeal">84%</span>
+              </div>
+              <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-dexter-forensicTeal h-2 rounded-full" style="width: 84%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Specimen 03: Forensic Debugging & Methodology -->
+        <div class="glass-slide p-6 rounded-2xl relative border-l-4 border-l-purple-500">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-title text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-bug-slash text-purple-400"></i> FORENSIC DIAGNOSTICS
+            </h3>
+            <span class="font-mono text-[10px] text-slate-400 bg-black/60 px-2 py-0.5 rounded">SLIDE #SK-03</span>
+          </div>
+          <div class="space-y-3 font-mono text-xs">
+            <div>
+              <div class="flex justify-between text-slate-300 mb-1">
+                <span>Debugging & Root-Cause Hunting</span>
+                <span class="text-purple-400">95%</span>
+              </div>
+              <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-purple-500 h-2 rounded-full" style="width: 95%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-slate-300 mb-1">
+                <span>Git Version Control & Tracking</span>
+                <span class="text-purple-400">82%</span>
+              </div>
+              <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-purple-500 h-2 rounded-full" style="width: 82%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-slate-300 mb-1">
+                <span>Database Queries & Data Schemas</span>
+                <span class="text-purple-400">78%</span>
+              </div>
+              <div class="w-full bg-neutral-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-purple-500 h-2 rounded-full" style="width: 78%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <h3 class="font-title text-xl font-bold text-white mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-briefcase text-dexter-brightRed"></i> DOCUMENTED CASE STUDIES & DEVELOPER PROJECTS
+      </h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        
+        <!-- Project 1: Dark Passenger Interactive Dossier (This System) -->
+        <div class="glass-slide p-6 rounded-2xl relative overflow-hidden group">
+          <div class="flex justify-between items-start mb-3">
+            <span class="px-2.5 py-1 rounded bg-red-950/80 text-dexter-neonRed text-[10px] font-mono font-bold tracking-wider">
+              PRIMARY EVIDENCE // ACTIVE WEB APP
+            </span>
+            <span class="text-emerald-400 font-mono text-xs"><i class="fa-solid fa-circle-check"></i> DEPLOYED</span>
+          </div>
+          <h4 class="text-lg font-title font-bold text-white group-hover:text-dexter-neonRed transition-colors">
+            Dexter-Themed Forensic Resume & Portfolio System
+          </h4>
+          <p class="text-sm text-slate-300 mt-2 leading-relaxed">
+            A comprehensive, cinematic multi-page developer resume application modeling Miami Metro Homicide forensic aesthetic. Built using pure semantic HTML5, CSS3/Tailwind, Web Audio API sound triggers, and strict single-file responsive design.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-4 font-mono text-[11px]">
+            <span class="px-2 py-1 rounded bg-neutral-900 border border-neutral-800 text-slate-300">HTML5</span>
+            <span class="px-2 py-1 rounded bg-neutral-900 border border-neutral-800 text-slate-300">Tailwind CSS</span>
+            <span class="px-2 py-1 rounded bg-neutral-900 border border-neutral-800 text-slate-300">JavaScript ES6</span>
+            <span class="px-2 py-1 rounded bg-neutral-900 border border-neutral-800 text-slate-300">Web Audio API</span>
+          </div>
+        </div>
+
+        <!-- Project 2: Cinephile & Series Analytics Engine -->
+        <div class="glass-slide p-6 rounded-2xl relative overflow-hidden group">
+          <div class="flex justify-between items-start mb-3">
+            <span class="px-2.5 py-1 rounded bg-cyan-950/80 text-dexter-forensicTeal text-[10px] font-mono font-bold tracking-wider">
+              ENTERTAINMENT RESEARCH ARCHIVE
+            </span>
+            <span class="text-dexter-forensicTeal font-mono text-xs"><i class="fa-solid fa-code-branch"></i> PROTOTYPE</span>
+          </div>
+          <h4 class="text-lg font-title font-bold text-white group-hover:text-dexter-forensicTeal transition-colors">
+            Cinephile Series Tracker & Narrative Matrix
+          </h4>
+          <p class="text-sm text-slate-300 mt-2 leading-relaxed">
+            An algorithmic cataloguer for crime thrillers, noir films, and multi-season web series. Categorizes plot pacing, director styles, and character arcs with real-time client-side search and responsive aesthetic dashboards.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-4 font-mono text-[11px]">
+            <span class="px-2 py-1 rounded bg-neutral-900 border border-neutral-800 text-slate-300">API Integration</span>
+            <span class="px-2 py-1 rounded bg-neutral-900 border border-neutral-800 text-slate-300">DOM Algorithms</span>
+            <span class="px-2 py-1 rounded bg-neutral-900 border border-neutral-800 text-slate-300">UI/UX Theming</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Navigation Footer -->
+      <div class="flex justify-between items-center pt-4 border-t border-neutral-800 font-mono text-xs">
+        <button onclick="navigateTo(1)" class="px-4 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-slate-300 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-arrow-left"></i> EVIDENCE 02: ACADEMICS
+        </button>
+        <button onclick="navigateTo(3)" class="px-5 py-2.5 rounded-lg bg-dexter-blood hover:bg-dexter-crimson text-white font-bold transition-all flex items-center gap-2 shadow-lg shadow-red-950">
+          PROCEED TO ARCHIVE 04: INNER CIRCLE <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- PAGE 4: ARCHIVE 04 - THE INNER CIRCLE & EVIDENCE DISPATCH -->
+    <!-- ======================================================== -->
+    <section id="page-3" class="page-section transition-all duration-500 hidden">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-neutral-800 gap-4">
+        <div>
+          <div class="flex items-center gap-2 font-mono text-xs text-amber-400 uppercase tracking-widest">
+            <i class="fa-solid fa-id-card-clip"></i> CONFIDENTIAL DOSSIER // FAMILY ARCHIVE & DISPATCH
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-title font-bold text-white mt-1">THE INNER CIRCLE & CONTACT TERMINAL</h2>
+          <p class="text-slate-400 text-sm mt-1">Guarding the home perimeter: Verified family records and direct channels for contact.</p>
+        </div>
+        <div>
+          <span class="stamp-classified px-3 py-1 font-mono text-xs font-bold bg-neutral-900">
+            PROTECTED FILES // CODE COMPLIANT
+          </span>
+        </div>
+      </div>
+
+      <!-- Family Ties / The Support Anchor Grid -->
+      <div class="mb-10">
+        <h3 class="font-title text-xl font-bold text-white mb-2 flex items-center gap-2">
+          <i class="fa-solid fa-users-viewfinder text-dexter-brightRed"></i> IMMEDIATE FAMILY DOSSIER
+        </h3>
+        <p class="text-slate-400 text-xs font-mono mb-6">"Every Dark Passenger needs an anchor to keep them grounded to humanity."</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Father: Selvaraj C -->
+          <div class="glass-slide rounded-2xl p-6 relative border-t-2 border-t-slate-500">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-neutral-900 border border-neutral-700 flex items-center justify-center text-slate-300">
+                <i class="fa-solid fa-user-tie text-xl"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest block">RELATION: FATHER</span>
+                <h4 class="text-lg font-title font-bold text-white">SELVARAJ C</h4>
+              </div>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              The foundational patriarch. Instilled ethics, relentless work ethic, and unconditional perseverance throughout academic and personal milestones.
+            </p>
+            <div class="mt-4 pt-4 border-t border-neutral-800 font-mono text-[11px] text-slate-400 flex items-center justify-between">
+              <span>DESIGNATION:</span>
+              <span class="text-white font-bold">PRIMARY ANCHOR</span>
+            </div>
+          </div>
+
+          <!-- Mother: Latha S -->
+          <div class="glass-slide rounded-2xl p-6 relative border-t-2 border-t-red-600">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-neutral-900 border border-neutral-700 flex items-center justify-center text-dexter-brightRed">
+                <i class="fa-solid fa-heart text-xl"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest block">RELATION: MOTHER</span>
+                <h4 class="text-lg font-title font-bold text-white">LATHA S</h4>
+              </div>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              The emotional cornerstone and quiet strength of the household. Constant source of encouragement, endurance, and warmth behind every challenge.
+            </p>
+            <div class="mt-4 pt-4 border-t border-neutral-800 font-mono text-[11px] text-slate-400 flex items-center justify-between">
+              <span>DESIGNATION:</span>
+              <span class="text-dexter-brightRed font-bold">PILLAR OF SUPPORT</span>
+            </div>
+          </div>
+
+          <!-- Brother: Prabhanja Subetchan S -->
+          <div class="glass-slide rounded-2xl p-6 relative border-t-2 border-t-cyan-500">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-neutral-900 border border-neutral-700 flex items-center justify-center text-dexter-forensicTeal">
+                <i class="fa-solid fa-user-shield text-xl"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-mono text-slate-500 uppercase tracking-widest block">RELATION: BROTHER</span>
+                <h4 class="text-lg font-title font-bold text-white">PRABHANJA SUBETCHAN S</h4>
+              </div>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Brother in blood and spirit. Comrade-in-arms sharing cinematic obsessions, future aspirations, and lifelong brotherhood support.
+            </p>
+            <div class="mt-4 pt-4 border-t border-neutral-800 font-mono text-[11px] text-slate-400 flex items-center justify-between">
+              <span>DESIGNATION:</span>
+              <span class="text-dexter-forensicTeal font-bold">CONFIDANT & BROTHER</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        
+        <!-- Contact Records Card -->
+        <div class="glass-slide rounded-2xl p-6 relative">
+          <h3 class="font-title text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-satellite-dish text-dexter-brightRed"></i> DIRECT COMM-LINKS
+          </h3>
+          <p class="text-slate-400 text-xs font-mono mb-6">
+            Initiate secure contact for internships, software engineering projects, or technical collaborations.
+          </p>
+
+          <div class="space-y-4 font-mono text-xs">
+            
+            <!-- Personal Mail -->
+            <div class="p-4 bg-neutral-950/80 rounded-xl border border-neutral-800 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-envelope text-lg text-dexter-brightRed"></i>
+                <div>
+                  <span class="text-[10px] text-slate-500 block uppercase">PERSONAL SECURE MAIL</span>
+                  <a href="mailto:ombrammahareenathan@gmail.com" class="text-slate-200 hover:text-white font-semibold">ombrammahareenathan@gmail.com</a>
+                </div>
+              </div>
+              <button onclick="copyToClipboard('ombrammahareenathan@gmail.com', 'Personal Email Copied')" class="p-2 hover:bg-neutral-800 rounded text-slate-400 hover:text-white">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+            </div>
+
+            <!-- College Official Mail -->
+            <div class="p-4 bg-neutral-950/80 rounded-xl border border-neutral-800 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-graduation-cap text-lg text-dexter-forensicTeal"></i>
+                <div>
+                  <span class="text-[10px] text-slate-500 block uppercase">COLLEGE / INSTITUTIONAL MAIL</span>
+                  <a href="mailto:23ombrammahareenathan2090606@mkce.ac.in" class="text-slate-200 hover:text-white font-semibold break-all">23ombrammahareenathan2090606@mkce.ac.in</a>
+                </div>
+              </div>
+              <button onclick="copyToClipboard('23ombrammahareenathan2090606@mkce.ac.in', 'College Email Copied')" class="p-2 hover:bg-neutral-800 rounded text-slate-400 hover:text-white">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+            </div>
+
+            <!-- Phone Primary -->
+            <div class="p-4 bg-neutral-950/80 rounded-xl border border-neutral-800 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-phone text-lg text-emerald-400"></i>
+                <div>
+                  <span class="text-[10px] text-slate-500 block uppercase">PRIMARY DIRECT LINE</span>
+                  <a href="tel:+919442750859" class="text-slate-200 hover:text-white font-semibold">+91 9442750859</a>
+                </div>
+              </div>
+              <button onclick="copyToClipboard('+919442750859', 'Primary Phone Copied')" class="p-2 hover:bg-neutral-800 rounded text-slate-400 hover:text-white">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+            </div>
+
+            <!-- Phone Alternative -->
+            <div class="p-4 bg-neutral-950/80 rounded-xl border border-neutral-800 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <i class="fa-solid fa-phone-volume text-lg text-amber-400"></i>
+                <div>
+                  <span class="text-[10px] text-slate-500 block uppercase">ALTERNATIVE DISPATCH LINE</span>
+                  <a href="tel:+918610786201" class="text-slate-200 hover:text-white font-semibold">+91 8610786201</a>
+                </div>
+              </div>
+              <button onclick="copyToClipboard('+918610786201', 'Alt Phone Copied')" class="p-2 hover:bg-neutral-800 rounded text-slate-400 hover:text-white">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Interactive Dispatch Terminal / Message Composer -->
+        <div class="glass-slide rounded-2xl p-6 relative flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="font-title text-xl font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-terminal text-dexter-brightRed"></i> SECURE MESSAGE DISPATCH
+              </h3>
+              <span class="text-[10px] font-mono text-emerald-400"><i class="fa-solid fa-shield"></i> ENCRYPTED</span>
+            </div>
+            
+            <p class="text-slate-400 text-xs font-mono mb-4">
+              Transmit an encrypted message directly to Om Bramma Haree Nathan S's inbox:
+            </p>
+
+            <form onsubmit="handleDispatchForm(event)" class="space-y-4 font-mono text-xs">
+              <div>
+                <label class="block text-slate-400 mb-1">CALL SIGN / YOUR NAME</label>
+                <input type="text" id="senderName" required placeholder="Agent / Recruiter / Collaborator" class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-dexter-brightRed transition-colors">
+              </div>
+
+              <div>
+                <label class="block text-slate-400 mb-1">TRANSMISSION FREQUENCY (EMAIL)</label>
+                <input type="email" id="senderEmail" required placeholder="your.email@organization.com" class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-dexter-brightRed transition-colors">
+              </div>
+
+              <div>
+                <label class="block text-slate-400 mb-1">DOSSIER INQUIRY / BRIEF</label>
+                <textarea id="senderMsg" rows="3" required placeholder="Software engineering role, collaboration query, or feedback on code architecture..." class="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-dexter-brightRed transition-colors"></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-3 bg-red-900 hover:bg-dexter-brightRed text-white font-bold rounded-lg tracking-wider uppercase transition-all shadow-lg shadow-red-950 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-paper-plane"></i> TRANSMIT EVIDENCE DISPATCH
+              </button>
+            </form>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-neutral-800 flex justify-between items-center text-xs font-mono text-slate-500">
+            <span>PRINTABLE ARCHIVE READY</span>
+            <button onclick="window.print()" class="text-dexter-forensicTeal hover:underline flex items-center gap-1">
+              <i class="fa-solid fa-download"></i> Save as PDF / Print
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Navigation Footer -->
+      <div class="flex justify-between items-center pt-4 border-t border-neutral-800 font-mono text-xs">
+        <button onclick="navigateTo(2)" class="px-4 py-2 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-slate-300 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-arrow-left"></i> LAB 03: SKILLS
+        </button>
+        <button onclick="navigateTo(0)" class="px-5 py-2.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-white font-bold transition-all flex items-center gap-2">
+          <i class="fa-solid fa-rotate-left"></i> RETURN TO START (BIO)
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="border-t border-neutral-800/80 bg-neutral-950/90 py-6 text-slate-400 font-mono text-xs relative z-10 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      
+      <!-- Footer Metadata -->
+      <div class="flex items-center space-x-3">
+        <span class="blood-dot"></span>
+        <span class="text-slate-300">OM BRAMMA HAREE NATHAN S</span>
+        <span class="text-slate-600">//</span>
+        <span>MKCE ROLL #2090606</span>
+      </div>
+
+      <!-- Dexter Easter Egg Quote Ticker -->
+      <div class="text-slate-400 italic text-center text-[11px] max-w-md hidden md:block">
+        "There are no secrets in life; just hidden truths lying beneath the surface."
+      </div>
+
+      <!-- Quick Pagination buttons -->
+      <div class="flex items-center space-x-2">
+        <button onclick="prevPage()" class="px-3 py-1.5 rounded bg-neutral-900 border border-neutral-800 hover:border-dexter-blood text-slate-300 hover:text-white transition-all">
+          <i class="fa-solid fa-chevron-left mr-1"></i> PREV
+        </button>
+        <button onclick="nextPage()" class="px-3 py-1.5 rounded bg-neutral-900 border border-neutral-800 hover:border-dexter-blood text-slate-300 hover:text-white transition-all">
+          NEXT <i class="fa-solid fa-chevron-right ml-1"></i>
+        </button>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    // State management
+    let currentPageIndex = 0;
+    const totalPages = 4;
+    let audioContext = null;
+    let isHeartbeatPlaying = false;
+    let heartbeatInterval = null;
+
+    // Dexter quotes pool
+    const dexterQuotes = [
+      `"Tonight’s the night. The IDE is open. The unit tests are waiting. Some people see lines of code; I see trajectory, flow, and intent. When bugs creep into production, they think they're invisible. They're not."`,
+      `"Harry taught me a code: Never get caught writing unstructured spaghetti code. Always sanitize inputs. Blend into the team, but maintain relentless precision."`,
+      `"Blood spatters are like stack traces. They never lie. The angle of departure always tells you who threw the exception."`,
+      `"People fake feelings all day long. But code? Code either executes with deterministic truth, or it crashes. I respect the compiler."`,
+      `"I have a dark passenger. It doesn't sleep until every edge case is handled and every leak is sealed tight."`
+    ];
+
+    // Page navigation function
+    function navigateTo(pageIndex) {
+      if (pageIndex < 0 || pageIndex >= totalPages) return;
+      currentPageIndex = pageIndex;
+
+      // Play subtle forensic click sound if audio initialized
+      playClickSound();
+
+      // Update Page Display
+      for (let i = 0; i < totalPages; i++) {
+        const pageElem = document.getElementById(`page-${i}`);
+        const desktopTab = document.getElementById(`tab-btn-${i}`);
+        const mobTab = document.getElementById(`mob-tab-${i}`);
+
+        if (i === pageIndex) {
+          pageElem.classList.remove('hidden');
+          pageElem.classList.add('block');
+
+          // Desktop active styling
+          if (desktopTab) {
+            desktopTab.className = "tab-btn px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 bg-dexter-blood text-white font-semibold shadow-lg shadow-red-900/40";
+          }
+          // Mobile active styling
+          if (mobTab) {
+            mobTab.className = "mob-tab px-3 py-1.5 text-dexter-brightRed font-bold flex items-center gap-1 border-b-2 border-dexter-brightRed";
+          }
+        } else {
+          pageElem.classList.add('hidden');
+          pageElem.classList.remove('block');
+
+          if (desktopTab) {
+            desktopTab.className = "tab-btn px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-white hover:bg-neutral-900";
+          }
+          if (mobTab) {
+            mobTab.className = "mob-tab px-3 py-1.5 text-slate-400 flex items-center gap-1";
+          }
+        }
+      }
+
+      // Update indicator
+      const pageIndicator = document.getElementById('pageNumberDisplay');
+      if (pageIndicator) {
+        pageIndicator.innerText = `PAGE 0${pageIndex + 1} / 04`;
+      }
+
+      // Smooth scroll to top of document
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextPage() {
+      if (currentPageIndex < totalPages - 1) {
+        navigateTo(currentPageIndex + 1);
+      } else {
+        navigateTo(0);
+      }
+    }
+
+    function prevPage() {
+      if (currentPageIndex > 0) {
+        navigateTo(currentPageIndex - 1);
+      } else {
+        navigateTo(totalPages - 1);
+      }
+    }
+
+    // Keyboard arrow navigation support
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowRight') nextPage();
+      if (e.key === 'ArrowLeft') prevPage();
+    });
+
+    // Dark Passenger Quote Generator
+    function triggerDarkPassengerQuote() {
+      playClickSound();
+      const quoteText = document.getElementById('quoteText');
+      const randomIndex = Math.floor(Math.random() * dexterQuotes.length);
+      quoteText.innerText = dexterQuotes[randomIndex];
+      
+      const monologueBox = document.getElementById('monologueBox');
+      monologueBox.classList.add('pulse-glow');
+      setTimeout(() => {
+        monologueBox.classList.remove('pulse-glow');
+      }, 1200);
+      
+      showToast("Dark Passenger Voice-over Triggered");
+    }
+
+    // Clipboard copy with toast notification
+    function copyToClipboard(text, message) {
+      playClickSound();
+      // Using fallback + standard approach safely
+      const tempInput = document.createElement("input");
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand("copy");
+        showToast(message || "Copied to clipboard!");
+      } catch (err) {
+        showToast("Unable to copy automatically.");
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    // Toast notification display
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.innerText = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3000);
+    }
+
+    // Web Audio API Synthesizer (Heartbeat & Forensic Sounds)
+    function initAudioContext() {
+      if (!audioContext) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        audioContext = new AudioCtx();
+      }
+      if (audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
+    }
+
+    function playClickSound() {
+      try {
+        initAudioContext();
+        if (!audioContext) return;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(150, audioContext.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(40, audioContext.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.12, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        osc.start();
+        osc.stop(audioContext.currentTime + 0.08);
+      } catch(e) {
+        // Audio policy safe
+      }
+    }
+
+    function playSingleHeartbeat() {
+      try {
+        initAudioContext();
+        if (!audioContext) return;
+        
+        // First lub
+        const osc1 = audioContext.createOscillator();
+        const gain1 = audioContext.createGain();
+        osc1.type = 'triangle';
+        osc1.frequency.setValueAtTime(65, audioContext.currentTime);
+        osc1.frequency.exponentialRampToValueAtTime(35, audioContext.currentTime + 0.12);
+        gain1.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gain1.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.12);
+        osc1.connect(gain1);
+        gain1.connect(audioContext.destination);
+        osc1.start();
+        osc1.stop(audioContext.currentTime + 0.12);
+
+        // Second dub
+        setTimeout(() => {
+          if (!audioContext) return;
+          const osc2 = audioContext.createOscillator();
+          const gain2 = audioContext.createGain();
+          osc2.type = 'triangle';
+          osc2.frequency.setValueAtTime(55, audioContext.currentTime);
+          osc2.frequency.exponentialRampToValueAtTime(30, audioContext.currentTime + 0.16);
+          gain2.gain.setValueAtTime(0.15, audioContext.currentTime);
+          gain2.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.16);
+          osc2.connect(gain2);
+          gain2.connect(audioContext.destination);
+          osc2.start();
+          osc2.stop(audioContext.currentTime + 0.16);
+        }, 180);
+
+      } catch(e) {
+        // Safe silence
+      }
+    }
+
+    function togglePulseAudio() {
+      initAudioContext();
+      const soundIcon = document.getElementById('soundIcon');
+      
+      if (!isHeartbeatPlaying) {
+        isHeartbeatPlaying = true;
+        soundIcon.classList.add('text-dexter-brightRed', 'fa-beat');
+        showToast("Forensic Heartbeat Audio: ACTIVATED");
+        playSingleHeartbeat();
+        heartbeatInterval = setInterval(playSingleHeartbeat, 1400);
+      } else {
+        isHeartbeatPlaying = false;
+        soundIcon.classList.remove('text-dexter-brightRed', 'fa-beat');
+        clearInterval(heartbeatInterval);
+        showToast("Forensic Heartbeat Audio: MUTED");
+      }
+    }
+
+    // Contact dispatch form handler
+    function handleDispatchForm(event) {
+      event.preventDefault();
+      const sender = document.getElementById('senderName').value;
+      const email = document.getElementById('senderEmail').value;
+      const message = document.getElementById('senderMsg').value;
+
+      playClickSound();
+
+      // Compose mailto as fallback transmission
+      const subject = encodeURIComponent(`Forensic Inquiry from ${sender}`);
+      const body = encodeURIComponent(`Sender: ${sender}\nEmail: ${email}\n\nMessage:\n${message}`);
+      
+      showToast(`Transmission logged! Opening client dispatcher...`);
+      
+      setTimeout(() => {
+        window.location.href = `mailto:ombrammahareenathan@gmail.com?subject=${subject}&body=${body}`;
+      }, 700);
+
+      event.target.reset();
+    }
+  </script>
+</body>
+</html>
